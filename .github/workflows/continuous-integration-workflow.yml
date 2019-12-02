@@ -398,33 +398,33 @@ jobs:
         GH_USER: ${{ secrets.GH_USER }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-  publish_npm:
-    name: "Publish npm package"
-    needs: prepare_and_tag_version
-    runs-on: ubuntu-18.04
-    steps:
-    - uses: actions/checkout@master
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-
-    - name: Unstash package.json
-      uses: actions/download-artifact@master
-      with:
-        name: package_json
-        path: "."
-
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: npm-${{ hashFiles('package-lock.json') }}
-
-    - name: Publish npm package
-      run: ./node_modules/.bin/ci_tools publish-npm-package --create-tag-from-branch-name
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #publish_npm:
+  #  name: "Publish npm package"
+  #  needs: prepare_and_tag_version
+  #  runs-on: ubuntu-18.04
+  #  steps:
+  #  - uses: actions/checkout@master
+  #  - name: Use Node.js 12.x
+  #    uses: actions/setup-node@v1
+  #    with:
+  #      node-version: 12.x
+#
+  #  - name: Unstash package.json
+  #    uses: actions/download-artifact@master
+  #    with:
+  #      name: package_json
+  #      path: "."
+#
+  #  - name: Cache node modules
+  #    uses: actions/cache@v1
+  #    with:
+  #      path: node_modules
+  #      key: npm-${{ hashFiles('package-lock.json') }}
+#
+  #  - name: Publish npm package
+  #    run: ./node_modules/.bin/ci_tools publish-npm-package --create-tag-from-branch-name
+  #    env:
+  #      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish_github:
     name: "Publish GitHub Release"
@@ -534,12 +534,13 @@ jobs:
 
     - name: Show Docker Images
       run: docker images
-
-    - name: Login to Docker
-      run: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
-
-    - name: Push Docker Image
-      run: docker push 5minds/process_engine_runtime
+#
+#    - name: Login to Docker
+#      run: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+#      env:
+#        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+#        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+#
+#    - name: Push Docker Image
+#      run: docker push 5minds/process_engine_runtime
+#
