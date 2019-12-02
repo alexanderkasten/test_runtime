@@ -1,0 +1,135 @@
+{
+  "name": "@process-engine/process_engine_runtime",
+  "version": "9.2.0",
+  "description": "Standalone application that provides access to the .TS implementation of the ProcessEngine.",
+  "bin": {
+    "process-engine": "./bin/index.js"
+  },
+  "scripts": {
+    "reinstall": "./reinstall.sh",
+    "start": "node ./bin/index.js",
+    "clean": "rm -rf dist",
+    "build": "npm run build-commonjs && npm run build-amd",
+    "clean-build": "npm run clean && npm run build",
+    "build-commonjs": "tsc",
+    "build-amd": "tsc --module amd --outDir ./dist/amd",
+    "lint": "eslint  src/**/**/*.ts src/**/*.ts src/*.ts",
+    "lint-fix": "eslint --fix  src/**/**/*.ts src/**/*.ts src/*.ts",
+    "test-internal-sqlite": "cross-env API_ACCESS_TYPE=internal NODE_ENV=test-sqlite CONFIG_PATH=config mocha -t 15000 test/**/*.js test/**/**/*.js  --exit",
+    "test-external-sqlite": "cross-env API_ACCESS_TYPE=external NODE_ENV=test-sqlite CONFIG_PATH=config mocha -t 15000 test/**/*.js test/**/**/*.js  --exit",
+    "test-internal-postgres": "cross-env API_ACCESS_TYPE=internal NODE_ENV=test-postgres CONFIG_PATH=config mocha -t 15000 test/**/*.js test/**/**/*.js  --exit",
+    "test-external-postgres": "cross-env API_ACCESS_TYPE=external NODE_ENV=test-postgres CONFIG_PATH=config mocha -t 15000 test/**/*.js test/**/**/*.js  --exit",
+    "test-internal-mysql": "cross-env API_ACCESS_TYPE=internal NODE_ENV=test-mysql CONFIG_PATH=config mocha -t 15000 test/**/*.js test/**/**/*.js  --exit",
+    "test-sqlite": "npm run test-internal-sqlite && npm run test-external-sqlite",
+    "test-postgres": "npm run test-internal-postgres && npm run test-external-postgres",
+    "test-mysql": "npm run test-internal-mysql",
+    "test": "npm run test-sqlite",
+    "test-all": "npm run test-sqlite && npm run test-postgres",
+    "test-debug": "cross-env NODE_ENV=test-sqlite CONFIG_PATH=config mocha --inspect-brk test/**/*.js test/**/**/*.js  --exit",
+    "build-windows-executable": "pkg --targets windows .",
+    "create-tarball": "node ./scripts/pack_sources/pack_to_tarball.js",
+    "create-zipfile": "node ./scripts/pack_sources/pack_to_zip.js"
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "homepage": "https://www.process-engine.io/",
+  "author": {
+    "name": "5Minds IT-Solutions GmbH & Co. KG",
+    "email": "info@5minds.de",
+    "url": "https://5minds.de/"
+  },
+  "contributors": [
+    "Alexander Kasten <alexander.kasten@5minds.de>",
+    "Bastian Schnittger <bastian.schnittger@5minds.de>",
+    "Christian Werner <christian.werner@5minds.de>",
+    "Christoph Gnip <christoph.gnip@5minds.de>",
+    "Paul Heidenreich <paul.heidenreich@5minds.de>",
+    "Robin Lenz <robin.lenz@5minds.de>",
+    "Robin Palkovits <robin.palkovits@5minds.de>",
+    "Sebastian Meier <sebastian.meier@5minds.de>",
+    "Steffen Knaup <steffen.knaup@5minds.de>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/process-engine/procese_engine_runtime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/process-engine/procese_engine_runtime/issues"
+  },
+  "publishConfig": {
+    "registry": "https://www.npmjs.com"
+  },
+  "pkg": {
+    "assets": [
+      "config/**/",
+      "sequelize/**/",
+      "node_modules/**/"
+    ],
+    "scripts": [
+      "node_modules/**/ioc_module.js"
+    ]
+  },
+  "dependencies": {
+    "@essential-projects/bootstrapper": "3.4.2",
+    "@essential-projects/bootstrapper_node": "3.3.2",
+    "@essential-projects/event_aggregator": "4.1.2",
+    "@essential-projects/http": "2.4.3",
+    "@essential-projects/http_extension": "6.7.3",
+    "@essential-projects/timing": "5.0.2",
+    "@process-engine/consumer_api_core": "6.2.0",
+    "@process-engine/consumer_api_http": "5.2.0",
+    "@process-engine/iam": "1.7.2",
+    "@process-engine/logging_api_core": "2.0.0",
+    "@process-engine/logging.repository.file_system": "2.0.0",
+    "@process-engine/management_api_core": "6.2.0",
+    "@process-engine/management_api_http": "5.2.0",
+    "@process-engine/process_engine_core": "12.12.1",
+    "@process-engine/persistence_api.repositories.sequelize": "1.2.1",
+    "@process-engine/persistence_api.services": "1.2.0",
+    "@process-engine/persistence_api.use_cases": "1.2.0",
+    "@types/socket.io": "^2.1.0",
+    "@types/socket.io-client": "^1.4.32",
+    "addict-ioc": "^2.5.3",
+    "bluebird": "^3.7.1",
+    "bluebird-global": "^1.0.1",
+    "cross-env": "^6.0.3",
+    "jsonwebtoken": "^8.5.0",
+    "loggerhythm": "^3.0.3",
+    "moment": "^2.24.0",
+    "mysql2": "^2.0.0",
+    "node-uuid": "^1.4.8",
+    "pg": "~7.12.0",
+    "pg-hstore": "~2.3.2",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "~5.21.1",
+    "socket.io": "~2.3.0",
+    "socket.io-client": "~2.3.0",
+    "sqlite3": "~4.1.0",
+    "swagger-ui-dist": "~3.24.0",
+    "umzug": "~2.2.0"
+  },
+  "devDependencies": {
+    "@essential-projects/eslint-config": "^1.0.0",
+    "@essential-projects/iam_contracts": "^3.6.0",
+    "@process-engine/ci_tools": "^2.2.0",
+    "@process-engine/consumer_api_client": "^6.2.0",
+    "@process-engine/consumer_api_contracts": "^9.1.0",
+    "@process-engine/external_task_api_client": "^2.1.0",
+    "@process-engine/management_api_client": "^6.2.0",
+    "@process-engine/management_api_contracts": "^13.1.0",
+    "@process-engine/process_engine_contracts": "^46.0.0",
+    "@types/bluebird-global": "^3.5.9",
+    "@types/express": "^4.16.0",
+    "@types/node": "^12.11.7",
+    "@types/sequelize": "^4.27.28",
+    "@types/umzug": "^2.2.0",
+    "@types/validator": "^10.11.0",
+    "eslint": "^6.6.0",
+    "mocha": "^6.0.0",
+    "mocha-jenkins-reporter": "^0.4.1",
+    "pkg": "^4.3.7",
+    "should": "^13.2.3",
+    "typescript": "^3.6.4"
+  }
+}
