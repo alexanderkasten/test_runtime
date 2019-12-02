@@ -99,8 +99,8 @@ jobs:
         npm run build
         npm rebuild
 
-    - name: Run tests
-      run: npm run test-sqlite
+    #- name: Run tests
+    #  run: npm run test-sqlite
 
     - name: Slack Notification
       uses: homoluctus/slatify@master
@@ -146,9 +146,9 @@ jobs:
 
     - name: Build
       run: npm run build
-
-    - name: Run tests
-      run: npm run test-postgres
+#
+    #- name: Run tests
+    #  run: npm run test-postgres
 
     - name: Slack Notification
       uses: homoluctus/slatify@master
@@ -187,8 +187,8 @@ jobs:
 
     - run: echo "create database processengine" | mysql
 
-    - name: Run tests
-      run: npm run test-mysql
+   # - name: Run tests
+   #   run: npm run test-mysql
 
     - name: Slack Notification
       uses: homoluctus/slatify@master
