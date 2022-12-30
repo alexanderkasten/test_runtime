@@ -126,7 +126,7 @@
     "@types/umzug": "^2.2.0",
     "@types/validator": "^10.11.0",
     "eslint": "^6.6.0",
-    "mocha": "^6.0.0",
+    "mocha": "^10.2.0",
     "mocha-jenkins-reporter": "^0.4.1",
     "pkg": "^4.3.7",
     "should": "^13.2.3",
